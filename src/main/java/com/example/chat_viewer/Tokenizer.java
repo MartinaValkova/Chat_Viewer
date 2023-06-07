@@ -109,7 +109,7 @@ public class Tokenizer  {
 
     private void handleState3() throws TokenizerException {
         if (line.isEmpty()) {
-            chatTokens.add(new Blanklinetoken());
+            chatTokens.add(new Emptylinetoken());
             state = 0;
         } else {
             throw new TokenizerException("Missing empty lines between messages" + lineNumber);
@@ -176,8 +176,8 @@ public class Tokenizer  {
 
     private void validateChatTokens() throws TokenizerException {
         System.out.println(chatTokens);
-        if (chatTokens.getLast().getType() == tokenType.BLANK_LINE) {
-            throw new TokenizerException("Blank line at the end of the input");
+        if (chatTokens.getLast().getType() == tokenType.EMPTY_LINE) {
+            throw new TokenizerException("Empty line at the end of the input");
         }
     }
 }

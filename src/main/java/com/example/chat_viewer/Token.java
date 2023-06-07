@@ -8,7 +8,7 @@ enum tokenType {
     TIME_STAMP,
     CONTENT,
     SMILE,
-    BLANK_LINE,
+    EMPTY_LINE,
     NICK_NAME,
 }
 

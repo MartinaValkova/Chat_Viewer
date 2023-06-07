@@ -43,9 +43,11 @@ public class HelloController {
      */
     @FXML
     public void onOpenButtonClick(ActionEvent actionEvent) {
-        Image smileHappy = new Image(getClass().getResource("smile_happy copy.gif").toExternalForm());
-        Image smileSad = new Image(getClass().getResource("smile_sad copy.gif").toExternalForm());
+        //Happy and sad smiles
+        Image smileHappy = new Image(getClass().getResource("smile_happy.gif").toExternalForm());
+        Image smileSad = new Image(getClass().getResource("smile_sad.gif").toExternalForm());
 
+        // Chat window cleaned before opening a file
         Window.getChildren().clear();
 
         FileChooser fileChooser = new FileChooser();
@@ -62,7 +64,7 @@ public class HelloController {
         }
 
         if (!fileExtension.equals("msg")) {
-            showErrorAlert("Wrong file type", "Wrong file type");
+            showErrorAlert("Wrong file type, please open .msg file ", "Wrong file type");
             return;
         }
 
@@ -99,7 +101,7 @@ public class HelloController {
         switch (type) {
             case NICK_NAME:
                 text.setText(text.getText() + ":");
-                text.setFill(Color.RED);
+                text.setFill(Color.BLUE);
                 text.setFont(Font.font("Arial", FontWeight.BOLD, 15));
                 break;
             case CONTENT:
@@ -115,7 +117,7 @@ public class HelloController {
                 break;
         }
     }
-
+    // Alert Error
     public void showErrorAlert(String content, String headerText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(content);

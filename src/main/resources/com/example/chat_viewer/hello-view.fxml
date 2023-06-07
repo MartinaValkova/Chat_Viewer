@@ -13,12 +13,12 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <Label text="Welcome to Chat Viewer!" textAlignment="CENTER" textFill="#19fab7" wrapText="true">
+    <Label text="Hello and Welcome to Chat Viewer!" textAlignment="CENTER" textFill="#19fab7" wrapText="true">
         <font>
             <Font size="30.0" />
         </font>
     </Label>
-    <ScrollPane fitToWidth="true" style="-fx-border-color: #ffff00; -fx-border-width: 3px;">
+    <ScrollPane fitToWidth="true" style="-fx-border-color: #19fab7; -fx-border-width: 2px;">
         <content>
             <TextFlow fx:id="Window" prefHeight="400.0" style="-fx-background-color: white;">
                 <padding>
