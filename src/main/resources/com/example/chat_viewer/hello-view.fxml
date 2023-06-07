@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.chat_viewer.HelloController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 
-  <Label fx:id="welcomeText"/>
-  <Button text="Hello!" onAction="#onHelloButtonClick"/>
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #ff9900;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chat_viewer.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <Label text="Welcome to Chat Viewer!" textAlignment="CENTER" textFill="#19fab7" wrapText="true">
+        <font>
+            <Font size="30.0" />
+        </font>
+    </Label>
+    <ScrollPane fitToWidth="true" style="-fx-border-color: #ffff00; -fx-border-width: 3px;">
+        <content>
+            <TextFlow fx:id="Window" prefHeight="400.0" style="-fx-background-color: white;">
+                <padding>
+                    <Insets left="30.0" right="30.0" />
+                </padding></TextFlow>
+        </content>
+    </ScrollPane>
+    <Label text="Open file by clicking on the button below" textAlignment="CENTER" textFill= "#19fab7" wrapText="true">
+        <font>
+            <Font size="16.0" />
+        </font></Label>
+
+    <Label fx:id="Path" textFill="WHITE" />
+    <Button fx:id="Button" onAction="#onOpenButtonClick" prefHeight="37.0" prefWidth="111.0" style="-fx-background-color: #19fab7; -fx-font-weight: bolder;" text="OPEN FILE" textAlignment="CENTER">
+        <font>
+            <Font name="System Bold" size="13.0" />
+        </font>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+        <padding>
+            <Insets bottom="20.0" top="20.0" />
+        </padding>
+    </Button>
 </VBox>
