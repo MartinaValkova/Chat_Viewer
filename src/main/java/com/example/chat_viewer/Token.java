@@ -2,7 +2,8 @@
 package com.example.chat_viewer;
 
 
-/** Token Types*/
+/** Token Types
+ * */
 
 enum tokenType {
     TIME_STAMP,
@@ -12,31 +13,29 @@ enum tokenType {
     NICK_NAME,
 }
 
-/**
- * Abstract class all token types inherit from.
- */
+
 public abstract class Token {
 
     private final tokenType type;
-    private final String TokenValue;
+    private final String value;
 
-    public Token(tokenType type, String TokenValue)
+    public Token(tokenType type, String value)
     {
         this.type = type;
-        this.TokenValue = TokenValue;
+        this.value = value;
     }
 
     /**
-     * Get a type of the token
+     * Type of the token
      */
-    tokenType getType(){
+    public tokenType getType() {
         return type;
     }
 
     /**
-     *Gets a value of the token
+     * Value of the token
      */
     public String getValue() {
-        return TokenValue;
+        return value;
     }
 }

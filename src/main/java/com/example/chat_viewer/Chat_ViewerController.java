@@ -20,29 +20,27 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
-
-public class HelloController {
+public class Chat_ViewerController {
     @FXML
     public TextFlow Window;
     @FXML
     public Label Path;
     @FXML
     public Button Button;
-    public Tokenizer tokenizer = new Tokenizer();
+    public Exceptions tokenizer = new Exceptions();
     public LinkedList<Token> tokens;
 
     public void initialize() {
-        tokenizer = new Tokenizer();
+        tokenizer = new Exceptions();
     }
 
-
-    /**actionEvent event is specified*/
     /**
-     * Method called Open button is clicked. Receiving and reading user input.
+     * actionEvent event is specified
+     * Method called Open button is clicked. Receiving and reading user input
+     * @param actionEvent
      */
     @FXML
-    public void onOpenButtonClick(ActionEvent actionEvent) {
+    public void openFileChooser(ActionEvent actionEvent) {
         //Happy and sad smiles
         Image smileHappy = new Image(getClass().getResource("smile_happy.gif").toExternalForm());
         Image smileSad = new Image(getClass().getResource("smile_sad.gif").toExternalForm());
@@ -51,7 +49,7 @@ public class HelloController {
         Window.getChildren().clear();
 
         FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(HelloApplication.stage);
+        File file = fileChooser.showOpenDialog(Main.stage);
         if (file == null) {
             return;
         }
@@ -76,7 +74,7 @@ public class HelloController {
         } catch (FileNotFoundException e) {
             showErrorAlert(e.getMessage(), "File is not found");
             return;
-        } catch (TokenizerException e) {
+        } catch (Exception e) {
             showErrorAlert(e.getMessage(), "Input is not valid");
             return;
         }
@@ -96,6 +94,7 @@ public class HelloController {
         String filePath = file.getAbsolutePath();
         Path.setText(filePath);
     }
+
 
     public void setTokenStyle(Text text, tokenType type) {
         switch (type) {
@@ -117,7 +116,10 @@ public class HelloController {
                 break;
         }
     }
-    // Alert Error
+
+    /**
+     * Error Alert
+     */
     public void showErrorAlert(String content, String headerText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(content);
@@ -125,5 +127,8 @@ public class HelloController {
         alert.showAndWait();
     }
 }
+
+
+
 
 

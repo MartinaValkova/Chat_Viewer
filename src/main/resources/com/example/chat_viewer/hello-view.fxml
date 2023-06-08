@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #ff9900;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chat_viewer.HelloController">
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #ff9900;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chat_viewer.Chat_ViewerController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -18,7 +18,7 @@
             <Font size="30.0" />
         </font>
     </Label>
-    <ScrollPane fitToWidth="true" style="-fx-border-color: #19fab7; -fx-border-width: 2px;">
+    <ScrollPane fitToWidth="true" style="-fx-border-color: #19fab7; -fx-border-width: 5px;">
         <content>
             <TextFlow fx:id="Window" prefHeight="400.0" style="-fx-background-color: white;">
                 <padding>
@@ -32,7 +32,7 @@
         </font></Label>
 
     <Label fx:id="Path" textFill="WHITE" />
-    <Button fx:id="Button" onAction="#onOpenButtonClick" prefHeight="37.0" prefWidth="111.0" style="-fx-background-color: #19fab7; -fx-font-weight: bolder;" text="OPEN FILE" textAlignment="CENTER">
+    <Button fx:id="Button" onAction="#openFileChooser" prefHeight="37.0" prefWidth="111.0" style="-fx-background-color: #19fab7; -fx-font-weight: bolder;" text="OPEN FILE" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="13.0" />
         </font>

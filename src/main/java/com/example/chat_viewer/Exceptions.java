@@ -1,11 +1,12 @@
 package com.example.chat_viewer;
+
+
 import java.util.LinkedList;
 import java.util.Scanner;
 
 
-/** Tokenizer implementation
- */
-public class Tokenizer  {
+
+public class Exceptions  {
     private int state;
     private String line;
     private int lineNumber;
@@ -16,10 +17,14 @@ public class Tokenizer  {
     private String previousNickname;
     private int tokenTypeEnds;
     private LinkedList<Token> chatTokens;
-    /***
-     * Analyzing content of the conversation ("msg") file and returning a corresponding list of tokens.
+
+    /**
+     * @param input analyzing content of the conversation ("msg")
+     * file and returning a corresponding list of tokens
+     * @return a list of chat tokens
+     * @throws Exception
      */
-    public LinkedList<Token> tokenize(Scanner input) throws TokenizerException {
+    public LinkedList<Token> tokenize(Scanner input) throws Exception {
         initializeVariables();
 
         while (input.hasNextLine()) {
@@ -42,7 +47,7 @@ public class Tokenizer  {
         chatTokens = new LinkedList<>();
     }
 
-    private void processLine(String currentLine) throws TokenizerException {
+    private void processLine(String currentLine) throws Exception {
         line = currentLine;
         lineNumber++;
 
@@ -62,20 +67,20 @@ public class Tokenizer  {
         }
     }
 
-    private void handleState0() throws TokenizerException {
+    private void handleState0() throws Exception {
         tokenTypeEnds = line.indexOf(":");
         currentTokenType = extractSubstring(line, tokenTypeEnds, "Invalid Time input" + lineNumber);
 
         currentTimestamp = line.substring(tokenTypeEnds + 1);
         if (isValidTime(currentTokenType, currentTimestamp)) {
-            chatTokens.add(new Timestoken(currentTimestamp));
+            chatTokens.add(new TimeStamp(currentTimestamp));
             state = 1;
         } else {
-            throw new TokenizerException("Invalid Time input" + lineNumber);
+            throw new Exception("Invalid Time input" + lineNumber);
         }
     }
 
-    private void handleState1() throws TokenizerException {
+    private void handleState1() throws Exception {
         tokenTypeEnds = line.indexOf(":");
         currentTokenType = extractSubstring(line, tokenTypeEnds, "Invalid Name input" + lineNumber);
 
@@ -87,14 +92,14 @@ public class Tokenizer  {
             } else {
                 previousNickname = currentNickname;
             }
-            chatTokens.add(new Nicknametoken(currentNickname));
+            chatTokens.add(new Nickname(currentNickname));
             state = 2;
         } else {
-            throw new TokenizerException("Invalid Name input" + lineNumber);
+            throw new Exception("Invalid Name input" + lineNumber);
         }
     }
 
-    private void handleState2() throws TokenizerException {
+    private void handleState2() throws Exception {
         tokenTypeEnds = line.indexOf(":");
         currentTokenType = extractSubstring(line, tokenTypeEnds, "Invalid Message" + lineNumber);
 
@@ -103,24 +108,24 @@ public class Tokenizer  {
             chatTokens.addAll(tokenizeMessage(currentMessage));
             state = 3;
         } else {
-            throw new TokenizerException("Invalid Message input" + lineNumber);
+            throw new Exception("Invalid Message input" + lineNumber);
         }
     }
 
-    private void handleState3() throws TokenizerException {
+    private void handleState3() throws Exception {
         if (line.isEmpty()) {
-            chatTokens.add(new Emptylinetoken());
+            chatTokens.add(new Emptyline());
             state = 0;
         } else {
-            throw new TokenizerException("Missing empty lines between messages" + lineNumber);
+            throw new Exception("Missing empty lines between messages" + lineNumber);
         }
     }
 
-    private String extractSubstring(String line, int endIndex, String errorMessage) throws TokenizerException {
+    private String extractSubstring(String line, int endIndex, String errorMessage) throws Exception {
         try {
             return line.substring(0, endIndex);
         } catch (Exception e) {
-            throw new TokenizerException(errorMessage);
+            throw new Exception(errorMessage);
         }
     }
 
@@ -132,13 +137,13 @@ public class Tokenizer  {
         return tokenType.equals("Name") && !nickname.isBlank();
     }
 
-    private LinkedList<Token> tokenizeMessage(String message) throws TokenizerException {
+    private LinkedList<Token> tokenizeMessage(String message) throws Exception {
         int inputPosition = 0;
         LinkedList<Token> messageTokens = new LinkedList<>();
         String currentString = "";
 
         if (message.isEmpty()) {
-            messageTokens.add(new Insidetoken(""));
+            messageTokens.add(new Content(""));
         } else {
             while (true) {
                 try {
@@ -147,24 +152,24 @@ public class Tokenizer  {
 
                     if (character.equals(':') && message.charAt(inputPosition) == ')') {
                         if (!currentString.isEmpty()) {
-                            messageTokens.add(new Insidetoken(currentString));
+                            messageTokens.add(new Content(currentString));
                             currentString = "";
                         }
-                        messageTokens.add(new Smilestoken(":)"));
+                        messageTokens.add(new Smile(":)"));
                         inputPosition += 1;
                     } else if (character.equals(':') && message.charAt(inputPosition) == '(') {
                         if (!currentString.isEmpty()) {
-                            messageTokens.add(new Insidetoken(currentString));
+                            messageTokens.add(new Content(currentString));
                             currentString = "";
                         }
-                        messageTokens.add(new Smilestoken(":("));
+                        messageTokens.add(new Smile(":("));
                         inputPosition += 1;
                     } else {
                         currentString += character;
                     }
                 } catch (IndexOutOfBoundsException e) {
                     if (!currentString.isEmpty()) {
-                        messageTokens.add(new Insidetoken(currentString));
+                        messageTokens.add(new Content(currentString));
                     }
                     break;
                 }
@@ -174,10 +179,10 @@ public class Tokenizer  {
         return messageTokens;
     }
 
-    private void validateChatTokens() throws TokenizerException {
+    private void validateChatTokens() throws Exception {
         System.out.println(chatTokens);
         if (chatTokens.getLast().getType() == tokenType.EMPTY_LINE) {
-            throw new TokenizerException("Empty line at the end of the input");
+            throw new Exception("Empty line at the end of the input");
         }
     }
 }
