@@ -3,9 +3,9 @@ package com.example.chat_viewer;
 /**
  * Class for the implementation of the TIME_STAMP token.
  */
-public class Timestoken extends Token {
+public class TimeStamp extends Token {
 
-    public Timestoken(String timestamp) {
+    public TimeStamp(String timestamp) {
         super(tokenType.TIME_STAMP, timestamp);
     }
 

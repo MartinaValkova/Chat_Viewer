@@ -10,17 +10,17 @@ import java.io.IOException;
  * Launches the application
  */
 
-
-public class HelloApplication extends Application {
+public class Main extends Application {
     public static Window stage;
 
     /**
      * Loads FXML document, specifies application sizes
+     * @param stage
+     * @throws IOException
      */
-
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 650, 550);
         stage.setScene(scene);
         stage.sizeToScene();
