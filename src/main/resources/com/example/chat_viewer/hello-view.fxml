@@ -20,7 +20,7 @@
     </Label>
     <ScrollPane fitToWidth="true" style="-fx-border-color: #19fab7; -fx-border-width: 5px;">
         <content>
-            <TextFlow fx:id="Window" prefHeight="400.0" style="-fx-background-color: white;">
+            <TextFlow fx:id="Window" prefHeight="700.0" style="-fx-background-color: white;">
                 <padding>
                     <Insets left="30.0" right="30.0" />
                 </padding></TextFlow>

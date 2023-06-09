@@ -19,11 +19,13 @@ public class Exceptions  {
     private LinkedList<Token> chatTokens;
 
     /**
-     * @param input analyzing content of the conversation ("msg")
-     * file and returning a corresponding list of tokens
-     * @return a list of chat tokens
-     * @throws Exception
+     * Examining the content of the conversation ("msg") file
+     *
+     * @param input The scanner object to read the conversation content from.
+     * @return A list of chat tokens.
+     * @throws Exception If any errors occur
      */
+
     public LinkedList<Token> tokenize(Scanner input) throws Exception {
         initializeVariables();
 
@@ -47,10 +49,16 @@ public class Exceptions  {
         chatTokens = new LinkedList<>();
     }
 
+    /**
+     * Processes a single line of the conversation content.
+     *
+     * @param currentLine The current line to process.
+     * @throws Exception If any errors occur
+     */
     private void processLine(String currentLine) throws Exception {
         line = currentLine;
         lineNumber++;
-
+// Switch statement to handle different states
         switch (state) {
             case 0:
                 handleState0();
@@ -68,13 +76,17 @@ public class Exceptions  {
     }
 
     private void handleState0() throws Exception {
+        //Find the index of the colon ":" in the line
         tokenTypeEnds = line.indexOf(":");
+        // Extract the substring before the colon, which represents the token type
         currentTokenType = extractSubstring(line, tokenTypeEnds, "Invalid Time input" + lineNumber);
 
+        // Extract the substring after the colon, which represents the current timestamp
         currentTimestamp = line.substring(tokenTypeEnds + 1);
         if (isValidTime(currentTokenType, currentTimestamp)) {
+            // Add a new TimeStamp token to the chatTokens list
             chatTokens.add(new TimeStamp(currentTimestamp));
-            state = 1;
+            state = 1;// Move to the next state
         } else {
             throw new Exception("Invalid Time input" + lineNumber);
         }
