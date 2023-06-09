@@ -35,10 +35,11 @@ public class Chat_ViewerController {
     }
 
     /**
-     * actionEvent event is specified
-     * Method called Open button is clicked. Receiving and reading user input
-     * @param actionEvent
+     * Method called when the Open button is clicked. Receiving and reading user input
+     *
+     * @param actionEvent the event triggered by the Open button
      */
+
     @FXML
     public void openFileChooser(ActionEvent actionEvent) {
         //Happy and sad smiles
@@ -48,25 +49,28 @@ public class Chat_ViewerController {
         // Chat window cleaned before opening a file
         Window.getChildren().clear();
 
+        //Create a file chooser dialog
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(Main.stage);
         if (file == null) {
             return;
         }
 
+        // Get the file name and extension
         String fileName = file.getName();
         String fileExtension = "";
         int dotIndex = fileName.lastIndexOf('.');
         if (dotIndex > 0) {
             fileExtension = fileName.substring(dotIndex + 1);
         }
-
+        // Check if the file extension is valid
         if (!fileExtension.equals("msg")) {
             showErrorAlert("Wrong file type, please open .msg file ", "Wrong file type");
             return;
         }
 
         try {
+            // Read the file and tokenize its content
             Scanner scanner = new Scanner(new FileInputStream(file));
             tokens = tokenizer.tokenize(scanner);
             scanner.close();
@@ -78,12 +82,14 @@ public class Chat_ViewerController {
             showErrorAlert(e.getMessage(), "Input is not valid");
             return;
         }
-
+        // Process the tokens and display them in the chat window
         for (Token token : tokens) {
             if (token.getType() == tokenType.SMILE) {
+                // Add a smiley image to the chat window
                 ImageView smileImage = new ImageView(token.getValue().equals(":)") ? smileHappy : smileSad);
                 Window.getChildren().add(smileImage);
             } else {
+                // Add a text token to the chat window
                 Text tempText = new Text();
                 tempText.setText(token.getValue());
                 setTokenStyle(tempText, token.getType());
@@ -97,6 +103,7 @@ public class Chat_ViewerController {
 
 
     public void setTokenStyle(Text text, tokenType type) {
+        // Set the style of the text based on the token type
         switch (type) {
             case NICK_NAME:
                 text.setText(text.getText() + ":");
@@ -118,7 +125,10 @@ public class Chat_ViewerController {
     }
 
     /**
-     * Error Alert
+     * Show an error alert with the given content and header text.
+     *
+     * @param content    the content of the error message
+     * @param headerText the header text of the error alert
      */
     public void showErrorAlert(String content, String headerText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -15,14 +15,17 @@ public class Main extends Application {
 
     /**
      * Loads FXML document, specifies application sizes
-     * @param stage
-     * @throws IOException
+     * @param stage The primary stage for the application
+     * @throws IOException if an error occurs while loading the FXML document
      */
     @Override
     public void start(Stage stage) throws IOException {
+        // Create an instance of FXMLLoader and load the FXML document
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 650, 550);
+        // Set the loaded scene to the primary stage
         stage.setScene(scene);
+        // Adjust the stage size to fit the content
         stage.sizeToScene();
         stage.show();
         stage.setMinWidth(stage.getWidth());
@@ -33,6 +36,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch();// Launch the JavaFX application
     }
 }
