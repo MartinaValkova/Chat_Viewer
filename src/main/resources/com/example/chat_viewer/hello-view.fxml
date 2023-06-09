@@ -18,7 +18,7 @@
             <Font size="30.0" />
         </font>
     </Label>
-    <ScrollPane fitToWidth="true" style="-fx-border-color: #19fab7; -fx-border-width: 5px;">
+    <ScrollPane fitToWidth="true" style="">
         <content>
             <TextFlow fx:id="Window" prefHeight="700.0" style="-fx-background-color: white;">
                 <padding>
